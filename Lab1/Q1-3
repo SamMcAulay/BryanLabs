@@ -1,0 +1,38 @@
+1:
+Types of memory allocation; static, used for global variables and constants;
+    stack, the default for variables declared within a function or block;
+    dynamic, useful for when the amount of memory needed isnt known at compile time;
+    thread-local storage, each thread gets its own private copy of the variable
+
+2:
+A stack overflow is a runtime error that occurs when a program attempts to use more memory on the call stack than is availible
+its avoided by ensuring has a correct base case, to stop any recursion, or by allocating large data structures on the heap,
+rather than declaring them all as local variables on the stack
+
+3:
+A)
+the result is undefined, as the program will complile but its behaviour unpredictable. delete ptr deallocates the memory that ptr
+was refering too, meaning ptr becomes a dangling pointer
+
+B)
+#include <iostream>
+
+int main()
+{
+    int* ptr = new int;      // Dynamically allocate an integer
+    *ptr = 7;               // Put a value in that memory location
+
+    // Print the value *before* deleting the pointer
+    std::cout << *ptr;
+
+    delete ptr;             // Return the memory to the operating system (only once!)
+
+    // Optional: Set the pointer to null to prevent accidental use
+    ptr = nullptr;
+
+    return 0;
+}
+
+C)
+A dangling pointer is simply a pointer that points to a memory location that has already been deallocated or freed. any attempt
+to read from or write to that memory location results in undefined behaviour
